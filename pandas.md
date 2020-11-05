@@ -1,3 +1,7 @@
+# Pandas
+
+https://pandas.pydata.org/pandas-docs/stable/reference/index.html#api
+
 ## Import pandas
 
 ```py
@@ -5,6 +9,7 @@ import pandas as pd
 ```
 
 ## Read csv
+
 https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
 ```py
@@ -43,4 +48,18 @@ df.dtypes
 ```py
 df['column'] = df['column'].astype('type')
 # type could be float int string
+```
+
+## Rename column
+
+```py
+df.rename(columns={'old_name': 'new_name'}, inplace=True)
+```
+
+## Calculate correlation
+
+Calculate corr between all numeric variables
+
+```py
+df.corr()
 ```

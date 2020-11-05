@@ -23,3 +23,15 @@ plt.tittle('string')
 plt.xlable('string')
 plt.ylabel('string')
 ```
+
+### Regression plot
+
+Used to see correlation between two variables
+
+```py
+sns.regplot(x='x_var', y='variable', data=df)
+plt.ylim(0,)
+```
+
+
+### Heatmap
