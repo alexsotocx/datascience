@@ -26,12 +26,30 @@ plt.ylabel('string')
 
 ### Regression plot
 
-Used to see correlation between two variables
+Used to see correlation between two variables and show the regression between them
 
 ```py
 sns.regplot(x='x_var', y='variable', data=df)
 plt.ylim(0,)
 ```
 
+### Residual plot
 
-### Heatmap
+See if the regression is correct visually
+<https://seaborn.pydata.org/generated/seaborn.residplot.html>
+
+```py
+sns.residplot(df['predictor'], df['price'])
+```
+
+### Distribution plots
+
+Counts how the predicted values vs the actual values behave
+<https://seaborn.pydata.org/generated/seaborn.displot.html#seaborn.displot>
+
+```py
+
+ax1 = sns.displot(df['price'], hist=False (Histogram), color="r", label="Actual values")
+# Yhat is the prediction
+sns.displot(Yhat, hist=False, color='b', label='Fitted values', ax=ax1)
+```
