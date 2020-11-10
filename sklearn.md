@@ -96,3 +96,37 @@ lm = LinearRegression()
 lm.fit(df['var_1'], df['var2'])
 R2 = lm.score(df['var_1'], df['var2'])
 ```
+
+## Training and splitting set
+
+Normally you split your data to train the model and other to test it.  A large subset of the sample is dedicated to train the model and the rest is used to validate it.
+
+```py
+from sklearn.model_selection import train_test_split
+
+x_train, x_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.3(the percentage to split), random_state=0 (random seed))
+```
+
+## Cross validation
+
+Divide the sample in K groups known as a fold, and use each fold as training and validation. Then get the average result
+
+```py
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_predict
+scores = cross_val_score(lr, x_data, y_data, cv=partitions)
+yhat = cross_val_predict(lr, x_data, y_data, cv=partitions)
+```
+
+## Ridge Regression
+
+Define alpha values to reduce the coefficients of the Polynomial regression.
+
+To select the correct alpha we generate several model, first we split the sample to train and to predict and then calculate the R^2 of each model and select the best of those
+
+```py
+from sklearn.linear_model import Ridge
+ridge_model = Ridge(alpha=0.1)
+ridge_model.fit(X, y)
+Yhat = ridge_model.predict(X)
+```

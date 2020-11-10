@@ -13,3 +13,10 @@ degree = 3
 f = np.polyfit(x, y, degree)
 p = np.poly1d(f)
 ```
+
+
+## Create ranges
+
+```py
+np.arrange(start, end, step)
+```
