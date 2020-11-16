@@ -63,3 +63,12 @@ Calculate corr between all numeric variables
 ```py
 df.corr()
 ```
+
+
+## Read from excel fules
+
+```py
+!pip install xlrd
+df = pd.read_excel('URL', sheetname='sheetname', skiprows=[], skip_footer=number)
+
+```

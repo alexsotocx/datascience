@@ -53,3 +53,30 @@ ax1 = sns.displot(df['price'], hist=False (Histogram), color="r", label="Actual 
 # Yhat is the prediction
 sns.displot(Yhat, hist=False, color='b', label='Fitted values', ax=ax1)
 ```
+
+### Plotting magic in notebooks
+
+```py
+%matplotlib inline -> renders in the same windows
+%matplotlib notebook -> allow modifications of the generated plot
+```
+
+### Plotting data with Pandas
+
+```py
+df.plot(kind='line')
+df['india'].plot(kind='hist')
+```
+
+### Line plots
+
+Used when the variable to plot is continue.
+
+```py
+df.loc['var1', 'var2'].plot(kind='line')
+plt.title('title')
+plt.xlabel('title')
+plt.ylabel('title')
+
+plt.show()
+```
