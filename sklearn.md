@@ -130,3 +130,90 @@ ridge_model = Ridge(alpha=0.1)
 ridge_model.fit(X, y)
 Yhat = ridge_model.predict(X)
 ```
+
+
+## Knearest neighboor
+
+Classification based on the closest K points based and compare to the new one, and see how they were classified, and then select the average of those close K points
+Classify based to simarility
+
+1. Pick a value for K
+2. Calculate the distance of all unknown cases from all cases.
+3. Select all nearest k points
+4. Select the classification based on the most popular respnse.
+
+```py
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
+print ('Train set:', X_train.shape,  y_train.shape)
+print ('Test set:', X_test.shape,  y_test.shape)
+
+k = 4
+#Train Model and Predict
+neigh = KNeighborsClassifier(n_neighbors = k).fit(X_train,y_train)
+neigh
+
+```
+
+### Evaluation metrics
+
+```py
+from sklearn import metrics
+print("Train set Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
+print("Test set Accuracy: ", metrics.accuracy_score(y_test, yhat))
+```
+
+#### Jaccard Index
+
+y -> Actual values
+yhat -> Predicted values
+
+J(y, yhat) = |y n yhat| / |y| + |yhat| - |y n yhat|
+
+The bigger the value is close to 1 the better
+
+#### Confussion matrix - F1 score
+
+* Confussion matrix row shows the true label.
+* Confussion matrix columns shows the predicted label.
+* Precision = TP / (TP + FP)
+* Recall = TP / (TP + FN)
+* F1-score = 2 * (prc * rec) / (prc + rec) the closer to 1 the better
+
+#### Log loss
+
+TBD
+
+## Decision trees
+
+Used to clasify attributes into 1 outcome
+
+* Entropy: Measures randomness in the data = `- p(A)log(p(A)) - p(B)log(p(B))` where p(x) -> is the proportion or the probability of getting x in the sample
+* Information gain = Entropy before splitting - weighted entropy after split
+* Nodes are considered pure if all the items fall into the same category.
+
+```py
+import numpy as np
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
+drugTree.fit(X_trainset,y_trainset)
+drugTree.predict(y_test)
+
+```
+
+### Evaluation
+
+```py
+from sklearn import metrics
+import matplotlib.pyplot as plt
+print("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
+```
+
+### How to build?
+
+* Select the more attribute predictiviness, less impurity, low Entropy
+* Calculate the entropy and information gain,
+* Split the data, and repeat
