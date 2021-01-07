@@ -217,3 +217,101 @@ print("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
 * Select the more attribute predictiviness, less impurity, low Entropy
 * Calculate the entropy and information gain,
 * Split the data, and repeat
+
+
+## K Mean cluster
+
+Iterative process:
+
+1. Select k random points
+2. calculate the distance to each point of the sample
+3. select the distance to the minimum K point and integrate to cluster.
+4. Move the K centroids calculating the center of the points forming the cluster.
+5. Go back to 2 until the centroids are balanced.
+
+What is the objective of k-means?
+
+* To form clusters in such a way that similar samples go into a cluster, and dissimilar samples fall into different clusters.
+
+* To minimize the “intra cluster” distances and
+maximize the “inter-cluster” distances.
+
+* To divide the data into non-overlapping clusters without any cluster-internal structure
+
+### Implementation
+
+* init: Initialization method of the centroids. Value will be: "k-means++", k-means++: Selects initial cluster centers for k-mean clustering in a smart way to speed up convergence.
+* n_clusters: The number of clusters to form as well as the number of centroids to generate.
+Value will be: 4 (since we have 4 centers)
+* n_init: Number of time the k-means algorithm will be run with different centroid seeds. The final results will be the best output of n_init consecutive runs in terms of inertia.
+Value will be: 12
+
+```py
+from sklearn.cluster import KMeans
+k_means = KMeans(init = "k-means++", n_clusters = 4, n_init = 12)
+k_means.fit(X)
+```
+
+## Hierachical clustering
+
+The Agglomerative Clustering class will require two inputs:
+
+* n_clusters: The number of clusters to form as well as the number of centroids to generate.
+Value will be: 4
+* linkage: Which linkage criterion to use. The linkage criterion determines which distance to use between sets of observation. The algorithm will merge the pairs of cluster that minimize this criterion.
+Value will be: 'complete'.
+Note: It is recommended you try everything with 'average' as well
+
+```py
+from scipy.cluster import hierarchy
+from scipy.spatial import distance_matrix
+from sklearn.cluster import AgglomerativeClustering
+agglom = AgglomerativeClustering(n_clusters = 4, linkage = 'average')
+agglom.fit(X1,y1)
+
+dist_matrix = distance_matrix(X1,X1)
+print(dist_matrix)
+
+Z = hierarchy.linkage(dist_matrix, 'complete')
+dendro = hierarchy.dendrogram(Z)
+```
+
+### How to calculate the distance
+
+```py
+import scipy
+leng = feature_mtx.shape[0]
+D = scipy.zeros([leng,leng])
+for i in range(leng):
+    for j in range(leng):
+        D[i,j] = scipy.spatial.distance.euclidean(feature_mtx[i], feature_mtx[j])
+```
+
+### Clustering using sklearn
+
+```py
+dist_matrix = distance_matrix(feature_mtx,feature_mtx)
+print(dist_matrix)
+agglom = AgglomerativeClustering(n_clusters = 6, linkage = 'complete')
+agglom.fit(feature_mtx)
+agglom.labels_
+```
+
+## DBSCAN - Density based clustering
+
+DBSCAN stands for Density-Based Spatial Clustering of Applications with Noise. This technique is one of the most common clustering algorithms which works based on density of object. The whole idea is that if a particular point belongs to a cluster, it should be near to lots of other points in that cluster.
+
+It works based on two parameters: Epsilon and Minimum Points
+Epsilon determine a specified radius that if includes enough number of points within, we call it dense area
+minimumSamples determine the minimum number of data points we want in a neighborhood to define a cluster.
+
+Note: Remember the data need to be standarized
+
+```py
+from sklearn.cluster import DBSCAN
+epsilon = 0.3
+minimumSamples = 7
+db = DBSCAN(eps=epsilon, min_samples=minimumSamples).fit(X)
+labels = db.labels_
+labels
+```
