@@ -181,9 +181,44 @@ The bigger the value is close to 1 the better
 * Recall = TP / (TP + FN)
 * F1-score = 2 * (prc * rec) / (prc + rec) the closer to 1 the better
 
+```py
+from sklearn.metrics import classification_report, confusion_matrix
+cnf_matrix = confusion_matrix(y_test, yhat, labels=[1,0])
+np.set_printoptions(precision=2)
+
+
+# Plot non-normalized confusion matrix
+plt.figure()
+plot_confusion_matrix(cnf_matrix, classes=['churn=1','churn=0'],normalize= False,  title='Confusion matrix')
+print (classification_report(y_test, yhat))
+```
+
 #### Log loss
 
-TBD
+Log loss( Logarithmic loss) measures the performance of a classifier where the predicted output is a probability value between 0 and 1.
+
+```py
+from sklearn.metrics import log_loss
+log_loss(y_test, yhat_prob)
+```
+
+### Logicstic regression
+
+Logistic Regression is a variation of Linear Regression, useful when the observed dependent variable, y, is categorical. It produces a formula that predicts the probability of the class label as a function of the independent variables.
+
+Logistic regression fits a special s-shaped curve by taking the linear regression and transforming the numeric estimate into a probability
+
+Probability of a class = e ^ (theta * X) / 1 + e ^ (theta * X)
+
+```py
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+LR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)
+yhat = LR.predict(X_test)
+yhat
+yhat_prob = LR.predict_proba(X_test)
+yhat_prob
+```
 
 ## Decision trees
 
@@ -210,6 +245,9 @@ drugTree.predict(y_test)
 from sklearn import metrics
 import matplotlib.pyplot as plt
 print("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
+from sklearn.metrics import jaccard_similarity_score
+jaccard_similarity_score(y_test, yhat)
+print (classification_report(y_test, yhat))
 ```
 
 ### How to build?
@@ -217,7 +255,6 @@ print("DecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
 * Select the more attribute predictiviness, less impurity, low Entropy
 * Calculate the entropy and information gain,
 * Split the data, and repeat
-
 
 ## K Mean cluster
 

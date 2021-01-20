@@ -72,3 +72,35 @@ df.corr()
 df = pd.read_excel('URL', sheetname='sheetname', skiprows=[], skip_footer=number)
 
 ```
+
+
+### Transform json
+
+```py
+# tranforming json file into a pandas dataframe library
+from pandas.io.json import json_normalize
+dataframe = json_normalize(venues)
+dataframe.head()
+```
+
+
+### Pandas filter
+
+```py
+df = df[df['Borough'] != 'Not assigned']
+```
+
+### Pandas Unique - freq
+
+```py
+df['Postal Code'].unique
+df['Postal Code'].value_counts
+```
+
+### Drop column
+
+<https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html>
+
+```py
+df.drop(['B', 'C'], axis=1)
+```
